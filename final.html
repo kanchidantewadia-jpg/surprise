@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Labdhi!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9ecb 0%, #ffd1dc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .card-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            margin: 0 auto;
+            perspective: 1500px;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .card-front, .card-inside {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+        }
+
+        .card-front {
+            background: linear-gradient(45deg, #ff758c 0%, #ff7eb3 100%);
+            color: white;
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card-inside {
+            background: linear-gradient(45deg, #fff0f5 0%, #ffe4e6 100%);
+            transform: rotateY(180deg);
+        }
+
+        .image-side {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: #f8e6ed;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bdyboy {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .message-side {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .front-text {
+            margin-bottom: 30px;
+            z-index: 2;
+        }
+
+        .happy {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .bday {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toyou {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .wrap-deco, .wrap-decoTwo {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .decorations, .decorationsTwo, .decorationsThree {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .decorations {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            left: 15%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .decorationsTwo {
+            width: 40px;
+            height: 40px;
+            top: 60%;
+            right: 15%;
+            animation: float 7s ease-in-out infinite 1s;
+        }
+
+        .decorationsThree {
+            width: 50px;
+            height: 50px;
+            bottom: 20%;
+            left: 20%;
+            animation: float 8s ease-in-out infinite 0.5s;
+        }
+
+        .plate {
+            position: absolute;
+            bottom: 70px;
+            width: 100px;
+            height: 30px;
+            background: #f8d7da;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        .cake {
+            position: absolute;
+            bottom: 30px;
+            width: 80px;
+            height: 40px;
+            background: #f8a5c2;
+            border-radius: 10px 10px 0 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .cake:before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            width: 60px;
+            height: 20px;
+            background: #f78fb3;
+            border-radius: 10px 10px 0 0;
+            left: 10px;
+        }
+
+        .flame {
+            position: absolute;
+            width: 15px;
+            height: 30px;
+            background: #ffce5c;
+            border-radius: 50% 50% 20% 20%;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px #ffce5c, 0 0 20px #ff9e6d;
+            animation: flicker 1.5s alternate infinite;
+        }
+
+        .inside-text {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .wishes {
+            font-size: 0.65rem;
+            line-height: 1.6;
+            color: #555;
+            text-align: left;
+        }
+
+        .wishes p {
+            margin-bottom: 6px;
+        }
+
+        .name {
+            text-align: right;
+            font-weight: bold;
+            color: #ff7eb3;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .instruction {
+            position: absolute;
+            bottom: 20px;
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+            width: 100%;
+            animation: pulse 2s infinite;
+        }
+
+           
+        /* Floating hearts */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes flicker {
+            0%, 100% {
+                height: 30px;
+            }
+            50% {
+                height: 35px;
+            }
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            .card-container {
+                height: 600px;
+                max-width: 350px;
+            }
+            
+            .card-inside {
+                flex-direction: column;
+            }
+            
+            .image-side {
+                flex: 1;
+            }
+            
+            .message-side {
+                flex: 1;
+            }
+            
+            .happy {
+                font-size: 2rem;
+            }
+            
+            .bday {
+                font-size: 2.5rem;
+            }
+            
+            .toyou {
+                font-size: 1.7rem;
+            }
+            
+            .star, .ballon, .cat {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .card-container {
+                height: 550px;
+                max-width: 300px;
+            }
+            
+            .happy {
+                font-size: 2.8rem;
+            }
+            
+            .bday {
+                font-size: 2.2rem;
+            }
+            
+            .toyou {
+                font-size: 1.5rem;
+            }
+            
+            .wishes {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <!-- Hearts container -->
+    <div class="hearts" id="hearts"></div>
+    
+    <!-- Birthday card -->
+    <div class="card-container">
+        <div class="card" id="birthdayCard">
+            <div class="card-front">
+                <div class="front-text">
+                    <h3 class="happy">HAPPY</h3>
+                    <h2 class="bday">BIRTHDAY</h2>
+                    <h3 class="toyou">Labdhi!</h3>
+                </div>
+                <div class="wrap-deco">
+                    <div class="decorations"></div>
+                    <div class="decorationsTwo"></div>
+                </div>
+                <div class="wrap-decoTwo">
+                    <div class="decorations"></div>
+                    <div class="decorationsThree"></div>
+                </div>
+                <div class="plate">
+                    <div class="cake"></div>
+                    <div class="flame"></div>
+                </div>
+                <p class="instruction">khol do :) :) </p>
+            </div>
+            <div class="card-inside">
+                <div class="image-side">
+                    <div class="image-container">
+                        <img src="labdhi.jpeg.jpg" alt="Labdhi" class="bdyboy">
+                    </div>
+                </div>
+                <div class="message-side">
+                    <div class="inside-text">
+                        <h4 class="happy">HAPPY</h3>
+                        <h4 class="bday">BIRTHDAY</h3>
+                        <h4 class="toyou">to you meri pyaari IDK Queen!</h4>
+                    </div>
+                    <div class="wishes">
+                        <p>Dear IDK QUEEN,</p>
+                        <p>Happy birthday meri jaan!! I hope your day is filled with lots of love and laughter! May all of your
+                            birthday wishes come true. You are the best thing that happened to me. Stay always happy with or without me! !Labdhi, tu meri life ka wo hissa hai jise shayad mai shabdon me kabhi pura describe na kar paun. Mai hamesha tere sath hu, tujhe yaad dilane ke liye ki tu kitni strong hai. Mujhe tujhpe pura bharosa hai, chahe kabhi tu khud pe vishwas karna bhool jaaye. Tere toughest days me bhi tu mere liye ek inspiration hai, aur mujhe tujhpe bohot proud feel hota hai ki tu itni saari cheezein daily manage karti hai bina kisi complain ke. Tu kabhi akeli nahi hai, bas ek phone call karna aur mai hamesha tere sath hu. Mai hamesha tere liye root karungi, tere har ek step me tujhe support karungi. Tera courage aur simplicity mujhe bohot inspire karta hai. Thank you meri life me aane ke liye aur apni dosti se mujhe itna special feel karane ke liye. Tu meri best friend hi nahi, balki meri life ka ek bohot hi important part hai… aur hamesha yaad rakhna, tu mere liye bohot matter karti hai Labdhi ❤</p>
+                        <p class="name">~ Your Riya❤️</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const colors = ['#ff6b6b', '#ff8e8e', '#ffaaaa', '#ffb7c5', '#ff9ecb'];
+            
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Card flip functionality
+        const card = document.getElementById('birthdayCard');
+        let isOpen = false;
+        
+        card.addEventListener('click', function() {
+            isOpen = !isOpen;
+            if (isOpen) {
+                this.style.transform = 'rotateY(180deg)';
+            } else {
+                this.style.transform = 'rotateY(0deg)';
+            }
+        });
+        
+        // Initialize
+        window.addEventListener('load', function() {
+            createHearts();
+        });
+    </script>
+</body>
+</html>
